@@ -1,16 +1,42 @@
+name: "\U0001F4DD 기능 추가/버그/코드 수정/리팩터링 이슈"
+description: "[FEATURE]/[BUG]/[FIX]/[REFACTOR] 중 하나를 선택하고, 제목을 입력하세요."
+title: "[FEATURE] "
 
-## [FEATURE]/[BUG]/[FIX]/[REFACTOR] title
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "📝 작업 내용 / Description"
+      description: "구현할 기능 또는 버그/수정 사항을 간단히 설명"
+      placeholder: |
+        - ex) 사용자 로그인 API 구현
+        - ex) 게시글 목록 조회 시 에러 수정
+    validations:
+      required: true
 
-### 📝 작업 내용 / Description
-- 구현할 기능 또는 버그/수정 사항 간단히 설명
+  - type: textarea
+    id: tasks
+    attributes:
+      label: "✅ 작업 상세 / Tasks"
+      description: "체크박스로 세부 작업을 나열"
+      placeholder: |
+        - [ ] 세부 작업1
+        - [ ] 세부 작업2
+        - [ ] 세부 작업3
 
-### ✅ 작업 상세 / Tasks
-- [ ] 세부 작업1
-- [ ] 세부 작업2
-- [ ] 세부 작업3
+  - type: textarea
+    id: reference
+    attributes:
+      label: "📚 참고 자료 / Reference"
+      description: "링크, 문서 등 참고자료"
+      placeholder: |
+        - (링크, 문서 등)
 
-### 📚 참고 자료 / Reference
-- (링크, 문서 등)
+  - type: textarea
+    id: notes
+    attributes:
+      label: "💡 비고 / Notes"
+      description: "기타 논의사항, 고민, 메모 등 자유롭게 작성"
+      placeholder: |
+        - 논의 필요한 점, 남기고 싶은 메모 등
 
-### 💡 비고 / Notes
-- 기타 논의사항, 고민, 메모 등 자유롭게
