@@ -52,11 +52,15 @@ public class BookRatingEntity {
         this.rating = rating;
     }
 
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     // DB 저장/수정 전 정규화
     @PrePersist
     @PreUpdate
     public void normalize() {
-        this.review = (review == null || review.trim().isEmpty()) ? null : review.trim();
+        this.review = normalizeString(review);
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
@@ -64,7 +68,7 @@ public class BookRatingEntity {
     public BookRatingEntity(int rating, String review, BookEntity book, UserEntity user) {
         if (rating < 1 || rating > 5) throw new IllegalArgumentException("Rating must be 1~5");
         this.rating = rating;
-        this.review = (review == null || review.trim().isEmpty()) ? null : review.trim();
+        this.review = normalizeString(review);
         this.book = book;
         this.user = user;
         // createdAt, updatedAt, isDeleted, id 등은 JPA 관리

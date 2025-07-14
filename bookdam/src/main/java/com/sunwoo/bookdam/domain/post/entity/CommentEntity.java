@@ -50,16 +50,20 @@ public class CommentEntity {
     // Soft delete 도메인 메서드
     public void softDelete() { this.isDeleted = true; }
 
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     // 댓글 내용 정규화 (공백만 입력시 null)
     @PrePersist @PreUpdate
     private void normalize() {
-        this.content = (content == null || content.trim().isEmpty()) ? null : content.trim();
+        this.content = normalizeString(content);
     }
 
     // Builder 커스텀(JPA 자동 관리 칼럼 제외)
     @Builder
     public CommentEntity(String content, int depth, PostEntity post, UserEntity user, CommentEntity parent) {
-        this.content = (content == null || content.trim().isEmpty()) ? null : content.trim();
+        this.content = normalizeString(content);
         this.depth = depth;
         this.post = post;
         this.user = user;

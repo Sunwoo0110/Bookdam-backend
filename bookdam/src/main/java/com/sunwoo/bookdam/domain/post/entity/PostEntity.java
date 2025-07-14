@@ -59,6 +59,15 @@ public class PostEntity {
         REVIEW, RECOMMEND, DEBATE, ETC
     }
 
+    private static PostCategory parseCategory(String category) {
+        if (category == null || category.trim().isEmpty()) return PostCategory.ETC;
+        try {
+            return PostCategory.valueOf(category.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return PostCategory.ETC;
+        }
+    }
+
     public void softDelete() { this.isDeleted = true; }
 
     public void increaseViewCount() { this.viewCount++; }
@@ -67,27 +76,22 @@ public class PostEntity {
     public void increaseCommentCount() { this.commentCount++; }
     public void decreaseCommentCount() { if (this.commentCount > 0) this.commentCount--; }
 
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     @PrePersist
     @PreUpdate
     private void normalize() {
-        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
-        this.content = (content == null || content.trim().isEmpty()) ? null : content.trim();
+        this.title = normalizeString(title);
+        this.content = normalizeString(content);
     }
 
     @Builder
     public PostEntity(String title, String content, String category, UserEntity user, BookEntity book) {
-        String normalized = category.trim().toUpperCase();
-        PostCategory postCategory;
-        try {
-            postCategory = PostCategory.valueOf(normalized);
-        } catch (IllegalArgumentException e) {
-            // 예외처리: 잘못된 값 입력 시
-            postCategory = PostCategory.ETC;
-        }
-
-        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
-        this.category = postCategory;
-        this.content = (content == null || content.trim().isEmpty()) ? null : content.trim();
+        this.title = normalizeString(title);
+        this.category = parseCategory(category);
+        this.content = normalizeString(content);
         this.user = user;
         this.book = book;
         // 나머지 필드는 JPA가 관리

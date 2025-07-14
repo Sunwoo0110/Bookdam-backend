@@ -48,24 +48,37 @@ public class NotificationEntity {
 
     public enum NotificationType { NEW_COMMENT, NEW_LIKE, NEW_MESSAGE }
 
+    private static NotificationType parseType(String type) {
+        if (type == null || type.trim().isEmpty()) return NotificationType.NEW_MESSAGE;
+        try {
+            return NotificationType.valueOf(type.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return NotificationType.NEW_MESSAGE;
+        }
+    }
+
     // 읽음 처리 도메인 메서드
     public void markRead() { this.isRead = true; }
 
     public void softDelete() { this.isDeleted = true; }
 
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     // 저장/수정 시 메시지 트림
     @PrePersist @PreUpdate
     private void normalize() {
-        this.message = (message == null || message.trim().isEmpty()) ? null : message.trim();
-        this.link = (link == null || link.trim().isEmpty()) ? null : link.trim();
+        this.message = normalizeString(message);
+        this.link = normalizeString(link);
     }
 
     // Builder 커스텀
     @Builder
-    public NotificationEntity(NotificationType type, String message, String link, UserEntity user) {
-        this.type = type;
-        this.message = (message == null || message.trim().isEmpty()) ? null : message.trim();
-        this.link = (link == null || link.trim().isEmpty()) ? null : link.trim();
+    public NotificationEntity(String type, String message, String link, UserEntity user) {
+        this.type = parseType(type);
+        this.message = normalizeString(message);
+        this.link = (normalizeString(link));
         this.user = user;
     }
 

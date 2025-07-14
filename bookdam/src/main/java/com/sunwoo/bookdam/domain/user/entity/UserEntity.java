@@ -57,21 +57,25 @@ public class UserEntity implements UserDetails {
         ROLE_USER, ROLE_ADMIN
     }
 
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     // DB에 저장 및 수정될 때마다 자동으로 정규화
     @PrePersist
     @PreUpdate
     public void normalize() {
-        this.username = (username == null || username.trim().isEmpty()) ? null : username.trim().toLowerCase();
-        this.email = (email == null || email.trim().isEmpty()) ? null : email.trim().toLowerCase();
+        this.username = normalizeString(username).toLowerCase();
+        this.email = normalizeString(email).toLowerCase();
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
     @Builder
     public UserEntity(String username, String password, String nickname, String email, String role, String profileImage) {
-        this.username = (username == null || username.trim().isEmpty()) ? null : username.trim().toLowerCase();
+        this.username = normalizeString(username).toLowerCase();
         this.password = password;
         this.nickname = nickname;
-        this.email = (email == null || email.trim().isEmpty()) ? null : email.trim().toLowerCase();
+        this.email = normalizeString(email).toLowerCase();
         this.role = UserRole.valueOf(role);
         this.profileImage = profileImage;
         // createdAt, updatedAt, isDeleted, id 등은 JPA가 관리

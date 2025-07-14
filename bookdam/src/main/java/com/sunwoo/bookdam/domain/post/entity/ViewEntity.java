@@ -31,17 +31,21 @@ public class ViewEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserEntity user; // 비회원이면 null
+    private UserEntity user;
+
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
 
     // ipAddress 정규화(공백 제거)
     @PrePersist @PreUpdate
     private void normalize() {
-        this.ipAddress = (ipAddress == null || ipAddress.trim().isEmpty()) ? null : ipAddress.trim();
+        this.ipAddress = normalizeString(ipAddress);
     }
 
     @Builder
     public ViewEntity(String ipAddress, PostEntity post, UserEntity user) {
-        this.ipAddress = (ipAddress == null || ipAddress.trim().isEmpty()) ? null : ipAddress.trim();
+        this.ipAddress = normalizeString(ipAddress);
         this.post = post;
         this.user = user;
         // viewedAt, id 등은 JPA 자동 관리

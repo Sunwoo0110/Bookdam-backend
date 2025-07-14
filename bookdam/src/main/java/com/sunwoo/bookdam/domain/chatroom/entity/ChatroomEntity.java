@@ -44,17 +44,30 @@ public class ChatroomEntity {
         PRIVATE, OPEN
     }
 
+    private static ChatroomType parseChatroomType(String type) {
+        if (type == null || type.trim().isEmpty()) return ChatroomType.OPEN; // 기본값
+        try {
+            return ChatroomType.valueOf(type.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return ChatroomType.OPEN;
+        }
+    }
+
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     // title 정규화
     @PrePersist @PreUpdate
     private void normalize() {
-        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
+        this.title = normalizeString(title);
     }
 
     // Builder 커스텀 (자동 관리 필드 제외)
     @Builder
-    public ChatroomEntity(ChatroomType type, String title, BookEntity book) {
-        this.type = type;
-        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
+    public ChatroomEntity(String type, String title, BookEntity book) {
+        this.type = parseChatroomType(type);
+        this.title = normalizeString(title);
         this.book = book;
         // createdAt, updatedAt, isDeleted, id 등은 JPA가 자동 관리
     }

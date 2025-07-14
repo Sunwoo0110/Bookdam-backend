@@ -38,9 +38,18 @@ public class LikeEntity {
         POST, COMMENT
     }
 
+    private static TargetType parseTargetType(String type) {
+        if (type == null || type.trim().isEmpty()) return TargetType.POST; // 기본값 필요시
+        try {
+            return TargetType.valueOf(type.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return TargetType.POST; // 잘못된 값 들어오면 기본값/에러처리
+        }
+    }
+
     @Builder
-    public LikeEntity(TargetType targetType, Long targetId, UserEntity user) {
-        this.targetType = targetType;
+    public LikeEntity(String targetType, Long targetId, UserEntity user) {
+        this.targetType = parseTargetType(targetType);
         this.targetId = targetId;
         this.user = user;
         // createdAt, updatedAt, id는 JPA가 관리

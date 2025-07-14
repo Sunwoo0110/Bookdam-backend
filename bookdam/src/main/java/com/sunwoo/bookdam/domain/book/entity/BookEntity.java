@@ -62,21 +62,25 @@ public class BookEntity {
         this.ratingCount = count;
     }
 
+    private static String normalizeString(String str) {
+        return (str == null || str.trim().isEmpty()) ? null : str.trim();
+    }
+
     // DB에 저장 및 수정될 때마다 자동으로 정규화
     @PrePersist @PreUpdate
     private void normalize() {
-        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
-        this.author = (author == null || author.trim().isEmpty()) ? null : author.trim();
-        this.isbn = (isbn == null || isbn.trim().isEmpty()) ? null : isbn.trim().toLowerCase();
+        this.title = normalizeString(title);
+        this.author =  normalizeString(author);
+        this.isbn =  normalizeString(isbn).toLowerCase();
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
     @Builder
     public BookEntity(String title, String author, String isbn, String coverImage,
                       int ratingCount, Double ratingAvg, String description) {
-        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
-        this.author = (author == null || author.trim().isEmpty()) ? null : author.trim();
-        this.isbn = (isbn == null || isbn.trim().isEmpty()) ? null : isbn.trim().toLowerCase();
+        this.title = normalizeString(title);
+        this.author =  normalizeString(author);
+        this.isbn =  normalizeString(isbn).toLowerCase();
         this.coverImage = coverImage;
         this.ratingCount = ratingCount;
         this.ratingAvg = ratingAvg;
