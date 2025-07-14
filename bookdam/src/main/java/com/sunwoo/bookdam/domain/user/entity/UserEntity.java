@@ -70,8 +70,8 @@ public class UserEntity implements UserDetails {
     @PrePersist
     @PreUpdate
     public void normalize() {
-        if (this.email != null) this.email = this.email.trim().toLowerCase();
-        if (this.username != null) this.username = this.username.trim().toLowerCase();
+        setEmail(this.email);
+        setUsername(this.username);
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)

@@ -63,7 +63,7 @@ public class BookEntity {
     @PrePersist
     @PreUpdate
     public void normalize() {
-        if (this.isbn != null) this.isbn = this.isbn.trim();
+        setIsbn(this.isbn);
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
