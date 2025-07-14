@@ -72,7 +72,7 @@ public class BookEntity {
                       int ratingCount, Double ratingAvg, String description) {
         this.title = title;
         this.author = author;
-        this.isbn = isbn == null ? null : isbn.trim().toLowerCase();
+        setIsbn(isbn);
         this.coverImage = coverImage;
         this.ratingCount = ratingCount;
         this.ratingAvg = ratingAvg;
