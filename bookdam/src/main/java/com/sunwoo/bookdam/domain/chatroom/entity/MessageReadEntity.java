@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Table(
         name = "message_read",
         uniqueConstraints = @UniqueConstraint(columnNames = {"message_id", "user_id"})
