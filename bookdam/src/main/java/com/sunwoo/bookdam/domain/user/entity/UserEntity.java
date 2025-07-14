@@ -50,12 +50,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
-    public boolean isActive() {
-        return deletedAt == null;
-    }
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
 
     public enum UserRole {
         ROLE_USER, ROLE_ADMIN
