@@ -67,12 +67,12 @@ public class UserEntity implements UserDetails {
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
     @Builder
-    public UserEntity(String username, String password, String nickname, String email, UserRole role, String profileImage) {
+    public UserEntity(String username, String password, String nickname, String email, String role, String profileImage) {
         this.username = (username == null || username.trim().isEmpty()) ? null : username.trim().toLowerCase();
         this.password = password;
         this.nickname = nickname;
         this.email = (email == null || email.trim().isEmpty()) ? null : email.trim().toLowerCase();
-        this.role = role;
+        this.role = UserRole.valueOf(role);
         this.profileImage = profileImage;
         // createdAt, updatedAt, isDeleted, id 등은 JPA가 관리
     }

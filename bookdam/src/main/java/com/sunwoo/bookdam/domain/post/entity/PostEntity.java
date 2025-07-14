@@ -76,8 +76,17 @@ public class PostEntity {
 
     @Builder
     public PostEntity(String title, String content, String category, UserEntity user, BookEntity book) {
+        String normalized = category.trim().toUpperCase();
+        PostCategory postCategory;
+        try {
+            postCategory = PostCategory.valueOf(normalized);
+        } catch (IllegalArgumentException e) {
+            // 예외처리: 잘못된 값 입력 시
+            postCategory = PostCategory.ETC;
+        }
+
         this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
-        this.category = PostCategory.valueOf(category.trim().toLowerCase());
+        this.category = postCategory;
         this.content = (content == null || content.trim().isEmpty()) ? null : content.trim();
         this.user = user;
         this.book = book;
