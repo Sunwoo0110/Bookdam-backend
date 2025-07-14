@@ -17,7 +17,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(name = "user")
 public class UserEntity implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

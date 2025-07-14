@@ -12,7 +12,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(name = "book")
 public class BookEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

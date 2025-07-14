@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(name = "comment")
 public class CommentEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

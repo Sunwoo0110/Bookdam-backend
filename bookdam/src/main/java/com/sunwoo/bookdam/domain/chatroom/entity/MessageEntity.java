@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(name = "message")
 public class MessageEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
