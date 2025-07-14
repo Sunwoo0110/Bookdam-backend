@@ -58,29 +58,21 @@ public class UserEntity implements UserDetails {
         ROLE_USER, ROLE_ADMIN
     }
 
-    // 중복 방지를 위한 공백 제거 및 소문자로 변경
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim().toLowerCase();
-    }
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim().toLowerCase();
-    }
-
     // DB에 저장 및 수정될 때마다 자동으로 정규화
     @PrePersist
     @PreUpdate
     public void normalize() {
-        setEmail(this.email);
-        setUsername(this.username);
+        this.username = (username == null || username.trim().isEmpty()) ? null : username.trim().toLowerCase();
+        this.email = (email == null || email.trim().isEmpty()) ? null : email.trim().toLowerCase();
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
     @Builder
     public UserEntity(String username, String password, String nickname, String email, UserRole role, String profileImage) {
-        setUsername(username);
+        this.username = (username == null || username.trim().isEmpty()) ? null : username.trim().toLowerCase();
         this.password = password;
         this.nickname = nickname;
-        setEmail(email);
+        this.email = (email == null || email.trim().isEmpty()) ? null : email.trim().toLowerCase();
         this.role = role;
         this.profileImage = profileImage;
         // createdAt, updatedAt, isDeleted, id 등은 JPA가 관리

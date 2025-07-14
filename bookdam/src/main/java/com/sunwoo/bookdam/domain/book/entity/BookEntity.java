@@ -54,25 +54,30 @@ public class BookEntity {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
-    // 공백 제거 및 소문자로 변경
-    public void setIsbn(String isbn) {
-        this.isbn = isbn == null ? null : isbn.trim().toLowerCase();
+    public void softDelete() {
+        this.isDeleted = true;
+    }
+
+    public void updateRating(double avg, int count) {
+        this.ratingAvg = avg;
+        this.ratingCount = count;
     }
 
     // DB에 저장 및 수정될 때마다 자동으로 정규화
-    @PrePersist
-    @PreUpdate
-    public void normalize() {
-        setIsbn(this.isbn);
+    @PrePersist @PreUpdate
+    private void normalize() {
+        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
+        this.author = (author == null || author.trim().isEmpty()) ? null : author.trim();
+        this.isbn = (isbn == null || isbn.trim().isEmpty()) ? null : isbn.trim().toLowerCase();
     }
 
     // Builder 커스텀 (JPA 자동 관리 칼럼 제외)
     @Builder
     public BookEntity(String title, String author, String isbn, String coverImage,
                       int ratingCount, Double ratingAvg, String description) {
-        this.title = title;
-        this.author = author;
-        setIsbn(isbn);
+        this.title = (title == null || title.trim().isEmpty()) ? null : title.trim();
+        this.author = (author == null || author.trim().isEmpty()) ? null : author.trim();
+        this.isbn = (isbn == null || isbn.trim().isEmpty()) ? null : isbn.trim().toLowerCase();
         this.coverImage = coverImage;
         this.ratingCount = ratingCount;
         this.ratingAvg = ratingAvg;
