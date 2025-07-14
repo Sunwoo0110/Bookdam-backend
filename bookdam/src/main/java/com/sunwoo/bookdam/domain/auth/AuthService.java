@@ -26,7 +26,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .nickname(dto.getNickname())
                 .email(dto.getEmail())
-                .role("ROLE_USER")
+                .role(UserEntity.UserRole.valueOf("ROLE_USER"))
                 .build());
 
         return user.getUsername();
@@ -41,9 +41,9 @@ public class AuthService {
         return LoginResDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
-                .role(user.getRole())
-                .accessToken(jwtTokenProvider.createToken(user.getUsername(), user.getRole(), false))
-                .refreshToken(jwtTokenProvider.createToken(user.getUsername(), user.getRole(), true))
+                .role(String.valueOf(user.getRole()))
+                .accessToken(jwtTokenProvider.createToken(user.getUsername(), String.valueOf(user.getRole()), false))
+                .refreshToken(jwtTokenProvider.createToken(user.getUsername(), String.valueOf(user.getRole()), true))
                 .build();
     }
 

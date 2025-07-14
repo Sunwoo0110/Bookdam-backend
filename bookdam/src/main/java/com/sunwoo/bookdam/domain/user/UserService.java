@@ -20,7 +20,7 @@ public class UserService {
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .profileImage(user.getProfileImage())
-                .role(user.getRole())
+                .role(String.valueOf(user.getRole()))
                 .build();
     }
 
@@ -33,7 +33,7 @@ public class UserService {
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .profileImage(user.getProfileImage())
-                .role(user.getRole())
+                .role(String.valueOf(user.getRole()))
                 .build();
     }
 
