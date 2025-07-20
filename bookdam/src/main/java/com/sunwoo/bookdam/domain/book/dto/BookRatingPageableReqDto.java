@@ -47,13 +47,4 @@ public class BookRatingPageableReqDto {
             message = "sort는 '필드명,asc' 또는 '필드명,desc' 형식이어야 합니다."
     )
     private String sort;
-
-    // 기본값 보장
-    public int getPage() {
-        return page == null ? 1 : page;
-    }
-
-    public int getSize() {
-        return size == null ? 20 : size;
-    }
 }
