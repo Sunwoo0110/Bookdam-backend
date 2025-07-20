@@ -26,7 +26,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .nickname(dto.getNickname())
                 .email(dto.getEmail())
-                .role(UserEntity.UserRole.valueOf("ROLE_USER"))
+                .role("ROLE_USER")
                 .build());
 
         return user.getUsername();
