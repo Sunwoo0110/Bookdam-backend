@@ -27,10 +27,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "books", key = "#req.page + '-' + #req.size + '-' + #req.sort")
+    @Cacheable(value = "books", key = "#req.toString()", unless = "#result.content.isEmpty()")
     public Page<BookListResDto> listBooks(BookSearchReqDto req) {
+        String title  = StringUtils.hasText(req.getTitle())  ? req.getTitle()  : "";
+        String author = StringUtils.hasText(req.getAuthor()) ? req.getAuthor() : "";
         Pageable p = buildPageable(req);
-        return bookRepository.findAllByIsDeletedFalse(p)
+        return bookRepository.findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCaseAndIsDeletedFalse(
+                title, author, p)
                 .map(mapper::toListDto);
     }
 

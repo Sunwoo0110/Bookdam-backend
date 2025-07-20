@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
-    Page<BookEntity> findAllByIsDeletedFalse(Pageable pageable);
+    Page<BookEntity> findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCaseAndIsDeletedFalse(
+            String title,
+            String author,
+            Pageable pageable
+    );
     Optional<BookEntity> findByIdAndIsDeletedFalse(Long id);
     Optional<BookEntity> findByIsbnAndIsDeletedFalse(String isbn);
 }
