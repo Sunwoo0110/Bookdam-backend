@@ -36,34 +36,23 @@ public class BookUpdateReqDto {
             example      = "http://example.com/cover_updated.jpg",
             requiredMode = RequiredMode.NOT_REQUIRED
     )
-    @Size(max = 1000, message = "coverImage URL은 최대 1000자까지 입력할 수 있습니다.")
+    @Size(
+            max     = 256,
+            message = "coverImage URL은 최대 1000자까지 입력할 수 있습니다."
+    )
     @URL(message = "유효한 URL 형식이어야 합니다.")
     private String coverImage;
 
     @Schema(
             description  = "설명 (optional)",
             example      = "최신 내용 보강",
-            requiredMode = Schema.RequiredMode.NOT_REQUIRED
+            requiredMode = RequiredMode.NOT_REQUIRED
     )
-    @Size(max = 2000, message = "description은 최대 2000자까지 입력할 수 있습니다.")
+    @Size(
+            max = 2000,
+            message = "description은 최대 2000자까지 입력할 수 있습니다."
+    )
     private String description;
-
-    @Schema(
-            description  = "평점 등록 건수 (optional)",
-            example      = "123",
-            requiredMode = Schema.RequiredMode.NOT_REQUIRED
-    )
-    @Min(value = 0, message = "ratingCount는 0 이상이어야 합니다.")
-    private Integer ratingCount;
-
-    @Schema(
-            description  = "평균 평점 (optional)",
-            example      = "4.7",
-            requiredMode = Schema.RequiredMode.NOT_REQUIRED
-    )
-    @DecimalMin(value = "0.0", message = "ratingAvg는 0.0 이상이어야 합니다.")
-    @DecimalMax(value = "5.0", message = "ratingAvg는 5.0 이하이어야 합니다.")
-    private Double ratingAvg;
 
     // 입력 정규화 (trim)
     public void setTitle(String title) {

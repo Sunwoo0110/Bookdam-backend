@@ -18,20 +18,19 @@ import lombok.*;
 public class BookRatingCreateReqDto {
 
     @Schema(
-            description = "평점 (1~5)",
-            example = "4",
+            description  = "평점 (1~5)",
+            example      = "4",
             requiredMode = RequiredMode.REQUIRED
     )
     @NotNull
-    @Min(1)
-    @Max(5)
+    @Min(1) @Max(5)
     private Integer rating;
 
-    @Schema(description = "리뷰 내용 (optional, 최대 1000자)", example = "정말 재미있게 읽었습니다.")
+    @Schema(
+            description = "리뷰 내용 (optional, 최대 1000자)",
+            example     = "정말 재미있게 읽었습니다.",
+            requiredMode = RequiredMode.NOT_REQUIRED
+    )
     @Size(max = 1000)
     private String review;
-
-    public void setReview(String review) {
-        this.review = (review == null ? null : review.trim());
-    }
 }

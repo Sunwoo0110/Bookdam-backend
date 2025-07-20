@@ -21,16 +21,16 @@ import lombok.Setter;
 public class BookRatingPageableReqDto {
 
     @Schema(
-            description = "페이지 번호 (1부터, 기본 1)",
-            example = "1",
+            description  = "페이지 번호 (1부터, 기본 1)",
+            example      = "1",
             requiredMode = RequiredMode.NOT_REQUIRED
     )
     @Min(1)
     private Integer page;
 
     @Schema(
-            description = "페이지 크기 (최대 100, 기본 20)",
-            example = "20",
+            description  = "페이지 크기 (최대 100, 기본 20)",
+            example      = "20",
             requiredMode = RequiredMode.NOT_REQUIRED
     )
     @Min(1)
@@ -38,7 +38,7 @@ public class BookRatingPageableReqDto {
     private Integer size;
 
     @Schema(
-            description  = "정렬 (예: createdAt,desc 또는 rating,asc)",
+            description  = "정렬 (예: createdAt,desc 또는 ratingAvg,asc)",
             example      = "createdAt,desc",
             requiredMode = RequiredMode.NOT_REQUIRED
     )
