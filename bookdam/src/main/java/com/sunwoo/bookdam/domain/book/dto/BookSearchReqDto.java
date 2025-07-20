@@ -29,7 +29,7 @@ public class BookSearchReqDto {
     private String author;
 
     @Schema(
-            description  = "정렬 기준 (예: ratingAvg,desc 또는 createdAt,asc)",
+            description  = "정렬 기준 (예: ratingAvg,desc, createdAt,asc 등등)",
             example      = "ratingAvg,desc",
             requiredMode = RequiredMode.NOT_REQUIRED
     )
@@ -54,15 +54,6 @@ public class BookSearchReqDto {
     )
     @Min(1) @Max(100)
     private Integer size;
-
-    // 기본값 보장
-    public int getPage() {
-        return page == null ? 1 : page;
-    }
-
-    public int getSize() {
-        return size == null ? 20 : size;
-    }
 
     // 입력 정규화
     public void setTitle(String title) {

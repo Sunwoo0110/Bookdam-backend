@@ -47,7 +47,14 @@ public class BookListResDto {
             example      = "200",
             requiredMode = RequiredMode.REQUIRED
     )
-    private final int ratingCount;
+    private final long ratingCount;
+
+    @Schema(
+            description  = "포스트 등록 건수",
+            example      = "200",
+            requiredMode = RequiredMode.REQUIRED
+    )
+    private final long postCount;
 
     @Schema(
             description  = "표지 이미지 URL",
