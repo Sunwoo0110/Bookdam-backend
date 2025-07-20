@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 
 @Data
-public class UserProfileResDto {
+public class UserInfoResDto {
 
     @Schema(description = "사용자 아이디", example = "1")
     @NotNull
@@ -32,7 +32,7 @@ public class UserProfileResDto {
     private String role;
 
     @Builder
-    public UserProfileResDto(@NotNull Long id, @NotNull String username, @NotNull String nickname, @NotNull String email, String profileImage, @NotNull String role) {
+    public UserInfoResDto(@NotNull Long id, @NotNull String username, @NotNull String nickname, @NotNull String email, String profileImage, @NotNull String role) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
