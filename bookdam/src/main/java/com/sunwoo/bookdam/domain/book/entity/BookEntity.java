@@ -30,7 +30,7 @@ public class BookEntity {
     @Column(name = "cover_image", length = 256)
     private String coverImage;
 
-    // 1~5점
+    // 평점 개수
     @Column(name = "rating_count", nullable = false)
     private int ratingCount = 0;
 
@@ -52,6 +52,26 @@ public class BookEntity {
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
+
+    public void updateTitle(String title) {
+        this.title = title == null ? null : title.trim();
+    }
+
+    public void updateAuthor(String author) {
+        this.author = author == null ? null : author.trim();
+    }
+
+    public void updateIsbn(String isbn) {
+        this.isbn = isbn == null ? null : isbn.replaceAll("[- ]", "").toLowerCase();
+    }
+
+    public void updateCoverImage(String coverImage) {
+        this.coverImage = coverImage == null ? null : coverImage.trim();
+    }
+
+    public void updateDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
 
     public void softDelete() {
         this.isDeleted = true;
@@ -112,5 +132,4 @@ public class BookEntity {
                 ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode()
                 : getClass().hashCode();
     }
-
 }
